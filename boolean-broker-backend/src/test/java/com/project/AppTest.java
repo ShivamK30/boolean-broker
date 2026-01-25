@@ -1,8 +1,8 @@
-package org.example;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+package com.project;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit test for simple App.
