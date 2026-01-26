@@ -3,6 +3,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .kotlin
+.env
+src/main/resources/application-dev.properties
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -34,6 +36,8 @@ build/
 
 ### VS Code ###
 .vscode/
+.idea/
 
 ### Mac OS ###
 .DS_Store
+/src/main/resources/application-dev.properties

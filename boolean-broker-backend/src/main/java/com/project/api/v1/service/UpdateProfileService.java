@@ -1,4 +1,5 @@
 package com.project.api.v1.service;
 
-public class userRegistration {
+public class UpdateProfileService {
+
 }
