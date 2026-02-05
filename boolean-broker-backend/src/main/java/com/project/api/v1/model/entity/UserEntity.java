@@ -12,6 +12,7 @@ public class UserEntity {
     private String phone;
     private String panNumber;     // nullable for ADMIN
     private String permanentAddress;
+    private boolean verified = false;
 
     //constructors
     public UserEntity(String name, String phone, UserType userType, String panNumber){
@@ -103,5 +104,13 @@ public class UserEntity {
 
     public void setPermanentAddress(String permanentAddress) {
         this.permanentAddress = permanentAddress;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
     }
 }

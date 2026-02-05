@@ -21,8 +21,14 @@ import jakarta.ws.rs.core.Response;
 
 public class userController {
 
+
+    private final UserRegistrationService userRegistrationService;
+
     @Inject
-    UserRegistrationService userRegistrationService;
+    public userController(UserRegistrationService userRegistrationService) {
+        this.userRegistrationService = userRegistrationService;
+    }
+
 
     @POST
     public Response register(@Valid UserRegistrationRequest request) {
