@@ -5,7 +5,6 @@ This is a controller class for user related endpoints
  */
 
 import com.project.api.v1.model.dto.UserRegistrationRequest;
-import com.project.api.v1.service.OtpService;
 import com.project.api.v1.service.UserRegistrationService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
