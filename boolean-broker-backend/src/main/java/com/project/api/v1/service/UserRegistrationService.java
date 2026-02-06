@@ -16,7 +16,7 @@ public class UserRegistrationService {
     @Inject
     OtpService otpService;
 
-    public void registerUser(UserRegistrationRequest userRegistrationRequest ){
+    public void RegisterUser(UserRegistrationRequest userRegistrationRequest ){
 
         String name = userRegistrationRequest.getName();
         String phone = userRegistrationRequest.getPhone();
