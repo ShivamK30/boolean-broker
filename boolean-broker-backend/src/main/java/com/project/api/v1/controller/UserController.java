@@ -15,24 +15,34 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/api/v1/user/userregistration")
+@Path("api/v1/user")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 
-public class userController {
+public class UserController {
 
 
     private final UserRegistrationService userRegistrationService;
+//    private final UpdateProfileService updateProfileService;
 
     @Inject
-    public userController(UserRegistrationService userRegistrationService) {
+    public UserController(UserRegistrationService userRegistrationService) {
         this.userRegistrationService = userRegistrationService;
+//        this.updateProfileService = updateProfileService;
     }
 
 
     @POST
+    @Path("/registration")
     public Response register(@Valid UserRegistrationRequest request) {
-        userRegistrationService.registerUser(request);
+        userRegistrationService.RegisterUser(request);
         return Response.status(Response.Status.CREATED).build();
     }
+
+//    @POST
+//    @Path("/profileupdate")
+//    public Response register(@Valid UpdateUserProfileRequest request) {
+//        updateProfileService.UpdateUserProfile(request);
+//        return Response.status(Response.Status.CREATED).build();
+//    }
 }
