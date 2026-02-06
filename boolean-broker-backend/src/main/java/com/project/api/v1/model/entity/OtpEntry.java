@@ -1,21 +1,42 @@
 package com.project.api.v1.model.entity;
 
+import io.quarkus.elytron.security.common.BcryptUtil;
+
 public class OtpEntry {
 
-    private final int otp;
+    private String userId;
+    private final String otp;
     private int attempts;
 
-    public OtpEntry(int otp) {
-        this.otp = otp;
-        this.attempts = 0;
+    public OtpEntry(String userId, String otp) {
+        this.otp = getOtpHash(otp);
+        this.attempts = 1;
     }
 
-    public int getOtp() {
+    public String getOtp() {
+
         return otp;
     }
 
-    public int incrementAttempts() {
-        return ++attempts;
+    public void incrementAttempts() {
+
+        ++attempts;
+    }
+
+    public int GetAttempts() {
+        return attempts;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getOtpHash(String otp) {
+        return BcryptUtil.bcryptHash(otp);
     }
 }
 

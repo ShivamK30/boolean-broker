@@ -71,7 +71,15 @@
       <artifactId>caffeine</artifactId>
       <version>3.2.3</version>
     </dependency>
-
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-elytron-security-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus.gizmo</groupId>
+      <artifactId>gizmo</artifactId>
+      <version>1.9.0.redhat-00001</version>
+    </dependency>
   </dependencies>
 
   <build>
