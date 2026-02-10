@@ -1,5 +1,9 @@
 package com.project.api.v1.controller;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
 /*
 This is a controller class for user related endpoints
  */
@@ -35,6 +39,9 @@ public class UserController {
 
     @POST
     @Path("/registration")
+    @Tag(name = "user")
+    @Operation(summary = "Register the user", description = "Returns a verification code after registering the user")
+    @APIResponse(responseCode = "201", description = "User added successfully")
     public Response register(@Valid UserRegistrationRequest request) {
         String verificationToken = userRegistrationService.RegisterUser(request);
 

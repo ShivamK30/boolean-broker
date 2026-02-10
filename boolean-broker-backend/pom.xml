@@ -76,9 +76,8 @@
       <artifactId>quarkus-elytron-security-common</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkus.gizmo</groupId>
-      <artifactId>gizmo</artifactId>
-      <version>1.9.0.redhat-00001</version>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-openapi</artifactId>
     </dependency>
   </dependencies>
 
