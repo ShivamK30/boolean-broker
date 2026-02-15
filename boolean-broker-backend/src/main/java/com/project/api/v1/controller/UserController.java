@@ -43,14 +43,22 @@ public class UserController {
     @Operation(summary = "Register the user", description = "Returns a verification code after registering the user")
     @APIResponse(responseCode = "201", description = "User added successfully")
     public Response register(@Valid UserRegistrationRequest request) {
-        String verificationToken = userRegistrationService.RegisterUser(request);
+        try {
+            String verificationToken = userRegistrationService.RegisterUser(request);
 
-        UserRegistrationResponse response =
-                new UserRegistrationResponse(verificationToken);
-        return Response
-                .status(Response.Status.CREATED)
-                .entity(response)
-                .build();
+            UserRegistrationResponse userRegistrationResponse =
+                    new UserRegistrationResponse(verificationToken);
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(userRegistrationResponse)
+                    .build();
+        }
+        catch (Exception e) {
+            return Response.
+                    status(500).
+                    entity(e).
+                    build();
+        }
     }
 
 //    @POST

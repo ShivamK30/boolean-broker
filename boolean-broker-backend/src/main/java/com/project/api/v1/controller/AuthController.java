@@ -2,6 +2,7 @@ package com.project.api.v1.controller;
 
 
 import com.project.api.v1.model.dto.OtpVerificationRequest;
+import com.project.api.v1.model.dto.TokenPair;
 import com.project.api.v1.service.OtpService;
 import io.quarkus.logging.Log;
 import jakarta.inject.Inject;
@@ -26,13 +27,9 @@ public class AuthController {
     @POST
     @Path("/verifyotp")
     public Response VerifyOtp(@Valid OtpVerificationRequest request) {
-        boolean verificationStatus = otpService.VerifyOtp(request);
-        Log.infof("Otp verification status: %s", verificationStatus);
-        if(verificationStatus) {
-            return Response.status(Response.Status.ACCEPTED).build();
-        }
-        else{
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
+        Log.infof("In verifyOtp method");
+        TokenPair tokenPair = otpService.VerifyOtp(request);
+        Log.infof("Otp verification response: %s", tokenPair);
+        return Response.status(Response.Status.OK).entity(tokenPair).build();
     }
 }

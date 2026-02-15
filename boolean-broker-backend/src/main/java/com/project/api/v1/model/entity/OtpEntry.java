@@ -14,7 +14,6 @@ public class OtpEntry {
     }
 
     public String getOtp() {
-
         return otp;
     }
 

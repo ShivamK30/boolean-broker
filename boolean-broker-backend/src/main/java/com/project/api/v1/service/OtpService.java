@@ -1,7 +1,10 @@
 package com.project.api.v1.service;
 
+import com.project.api.v1.common.ApiException;
 import com.project.api.v1.dbinterface.OtpCache;
 import com.project.api.v1.model.dto.OtpVerificationRequest;
+import com.project.api.v1.model.dto.TokenPair;
+import com.project.api.v1.model.entity.ErrorCode;
 import com.project.api.v1.model.entity.OtpEntry;
 import com.project.api.v1.model.entity.SendOtpService;
 import io.quarkus.logging.Log;
@@ -21,6 +24,9 @@ public class OtpService {
     @Inject
     SendOtpService sendOtpService;
 
+    @Inject
+    JwtService jwtService;
+
     private static final SecureRandom secureRandom = new SecureRandom();
 
     public String generateAndStoreOtp(String userId) {
@@ -28,6 +34,7 @@ public class OtpService {
         String otp = String.valueOf(secureRandom.nextInt(900000) + 100000);
         String verificationToken = generateVerificationToken();
         Log.infof("Verification token: %s",verificationToken);
+        Log.infof("Raw OTP: %s",otp);
 
         // Store the OTP manually in the cache. The expiration is handled by Quarkus config.
         otpCache.put(verificationToken, new OtpEntry(userId,otp));
@@ -44,21 +51,30 @@ public class OtpService {
         return verificationToken;
     }
 
-    public boolean VerifyOtp(OtpVerificationRequest request) {
+    public TokenPair VerifyOtp(OtpVerificationRequest request) {
         // Use getIfPresent to retrieve the value. If expired, it automatically returns null.
         OtpEntry storedOtp = otpCache.get(request.getVerificationToken());
 
         if (storedOtp != null) {
-
             if (storedOtp.GetAttempts() <= 3 && BcryptUtil.matches(request.getOtp(), storedOtp.getOtp())) {
                 // Remove the OTP immediately after successful verification
-                otpCache.remove(request.getVerificationToken());
-                return true;
+//                otpCache.remove(request.getVerificationToken());
+                String userId = storedOtp.getUserId();
+                return jwtService.generateTokenPair(userId);
             }
-            //Increase attempts by 1 before returning
-            storedOtp.incrementAttempts();
+            else if(storedOtp.GetAttempts() > 3) {
+                otpCache.remove(request.getVerificationToken());
+                throw new ApiException(ErrorCode.TOO_MANY_ATTEMPTS);
+            }
+            else {
+                //Increase attempts by 1 before returning
+                storedOtp.incrementAttempts();
+                throw new ApiException(ErrorCode.INVALID_OTP);
+            }
         }
-        return false;
+        else {
+            throw new ApiException(ErrorCode.OTP_EXPIRED);
+        }
     }
 
     public String generateVerificationToken() {
