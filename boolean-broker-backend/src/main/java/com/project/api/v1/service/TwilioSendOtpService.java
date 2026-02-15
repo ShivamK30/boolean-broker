@@ -27,7 +27,7 @@ public class TwilioSendOtpService implements SendOtpService {
     String fromNumber;
 
     @Override
-    public void SendOtp(String toPhoneNumber, int otp) {
+    public void SendOtp(String toPhoneNumber, String otp) {
         try {
             String auth = accountSid + ":" + authToken;
             String encodedAuth = Base64.getEncoder()

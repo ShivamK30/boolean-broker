@@ -16,7 +16,7 @@ public class UserRegistrationService {
     @Inject
     OtpService otpService;
 
-    public void registerUser(UserRegistrationRequest userRegistrationRequest ){
+    public String RegisterUser(UserRegistrationRequest userRegistrationRequest ){
 
         String name = userRegistrationRequest.getName();
         String phone = userRegistrationRequest.getPhone();
@@ -32,7 +32,7 @@ public class UserRegistrationService {
         addUserToDB(userEntity);
 
         //generate and store OTP
-        otpService.generateAndStoreOtp(userID);
+        return otpService.generateAndStoreOtp(userID);
     }
 
     public void addUserToDB(UserEntity userEntity){

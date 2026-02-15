@@ -1,8 +1,6 @@
 package com.project.api.v1.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.project.api.v1.model.entity.UserType;
-import io.quarkus.runtime.annotations.ConfigDocEnumValue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -13,7 +11,7 @@ import java.time.LocalDate;
 
 public class UserRegistrationRequest {
 
-    @NotNull
+    @NotBlank
     private String name;
 
     @NotNull
@@ -26,7 +24,7 @@ public class UserRegistrationRequest {
     )
     private String phone;
 
-    @NotNull
+    @NotBlank
     @Size(min = 10, max = 10)
     @Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]", message = "Invalid PAN format")
     private String panNumber;       // nullable for ADMIN
